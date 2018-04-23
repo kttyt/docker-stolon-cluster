@@ -1,7 +1,7 @@
 FROM  postgres:9.6.1
 
 USER root
-COPY stolon-keeper stolonctl /usr/local/bin/
+COPY stolon-keeper stolonctl /usr/bin/
 #COPY keeper-entrypoint.sh /usr/local/bin/
 COPY pgpass.replication /etc/stolon/secrets/pgpass.replication
 COPY pgpass.postgres /etc/stolon/secrets/pgpass.postgres
@@ -29,4 +29,4 @@ USER postgres
 EXPOSE 5432
 #ENTRYPOINT ["keeper-entrypoint.sh"]
 
-ENTRYPOINT /usr/local/bin/stolon-keeper --pg-listen-address=$HOSTNAME
+ENTRYPOINT /usr/bin/stolon-keeper --pg-listen-address=$HOSTNAME

@@ -1,0 +1,19 @@
+[Unit]
+Description=docker-compose
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+
+# Remove old containers, images and volumes
+ExecStartPre=/usr/bin/docker-compose -f /opt/compose/docker-compose.yml down -v
+
+# Compose up
+ExecStart=/usr/bin/docker-compose -f /opt/compose/docker-compose.yml up
+
+# Compose down, remove containers and volumes
+ExecStop=/usr/bin/docker-compose -f /opt/compose/docker-compose.yml down -v
+
+[Install]
+WantedBy = multi-user.target

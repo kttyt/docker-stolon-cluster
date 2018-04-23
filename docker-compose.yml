@@ -10,12 +10,12 @@ services:
   app1:
       build: tomcat
       volumes:
-          - /opt/wabapps1:/usr/local/tomcat/webapps
+          - /opt/webapps1:/usr/local/tomcat/webapps
 
   app2:
       build: tomcat
       volumes:
-          - /opt/wabapps2:/usr/local/tomcat/webapps
+          - /opt/webapps2:/usr/local/tomcat/webapps
 
   etcd:
       build: etcd

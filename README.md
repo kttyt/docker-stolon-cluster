@@ -2,7 +2,7 @@
 
 stolonctl --cluster-name cluster01 --store-endpoints http://etcd:2379 --store-backend etcdv3 status
 
-vim /usr/lib/systemd/system/docker-compose.service
+/etc/systemd/system/docker-compose.service
 
 [Unit]
 Description=docker-compose

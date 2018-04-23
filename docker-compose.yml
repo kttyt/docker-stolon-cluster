@@ -9,9 +9,13 @@ services:
           - app2:backend02
   app1:
       build: tomcat
+      volumes:
+          - /opt/wabapps1:/usr/local/tomcat/webapps
 
   app2:
       build: tomcat
+      volumes:
+          - /opt/wabapps2:/usr/local/tomcat/webapps
 
   etcd:
       build: etcd
@@ -20,6 +24,8 @@ services:
 
   postgresql1:
       build: postgresql
+      ports:
+          - "15432:5432"
       environment:
           - STKEEPER_PG_LISTEN_ADDRESS postgresql1
           - STKEEPER_LISTEN_ADDRESS postgresql1
@@ -30,6 +36,8 @@ services:
 
   postgresql2:
       build: postgresql
+      ports:
+          - "25432:5432"
       environment:
           - STKEEPER_PG_LISTEN_ADDRESS postgresql2
           - STKEEPER_LISTEN_ADDRESS postgresql2

@@ -1,7 +1,6 @@
 version: '2.1'
 services:
   web:
-      #image: "my-haproxy"
       build: haproxy
       ports:
           - "0.0.0.0:80:80"
@@ -9,63 +8,45 @@ services:
           - app1:backend01
           - app2:backend02
   app1:
-      #image: "my-tomcat"
       build: tomcat
 
   app2:
-      #image: "my-tomcat"
       build: tomcat
 
   etcd:
       build: etcd
-      #image: "etcd"
       volumes:
           - ./local/etcd:/var/lib/etcd/etcd-cluster.etcd
 
   postgresql1:
       build: postgresql
-      #image : "my-postgresql"
       environment:
           - STKEEPER_PG_LISTEN_ADDRESS postgresql1
           - STKEEPER_LISTEN_ADDRESS postgresql1
       volumes:
           - ./local/keeper1:/keeper
-#      depends_on:
-#          - etcd
-#          - postgresql2:postgresql2
       links:
           - etcd:etcd
-#          - postgresql2:postgresql2
 
   postgresql2:
       build: postgresql
-      #image : "my-postgresql"
       environment:
           - STKEEPER_PG_LISTEN_ADDRESS postgresql2
           - STKEEPER_LISTEN_ADDRESS postgresql2
       volumes:
           - ./local/keeper2:/keeper
-#      depends_on:
-#          - etcd
-#          - postgresql1:postgresql1
       links:
           - etcd:etcd
           - postgresql1:postgresql1
             
   sentinel:
-      #image: "stolon-sentinel"
       build: stolon-sentinel
-#      depends_on:
-#          - etcd
       links:
           - etcd:etcd
 
   stolon-proxy:
       build: stolon-proxy
-      #image: "stolon-proxy"
       ports:
           - "127.0.0.1:5432:5432"
-#      depends_on:
-#          - etcd
       links:
           - etcd:etcd

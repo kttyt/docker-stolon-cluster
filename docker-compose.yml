@@ -9,11 +9,15 @@ services:
           - app2:backend02
   app1:
       build: tomcat
+      links:
+          - stolon-proxy:db
       volumes:
           - /opt/webapps1:/usr/local/tomcat/webapps
 
   app2:
       build: tomcat
+      links:
+          - stolon-proxy:db
       volumes:
           - /opt/webapps2:/usr/local/tomcat/webapps
 

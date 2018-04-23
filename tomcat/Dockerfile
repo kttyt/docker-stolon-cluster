@@ -1,4 +1,4 @@
-FROM tomcat:7
+FROM tomcat:8
 EXPOSE 8080 
 
 COPY postgresql-42.2.2.jar /usr/local/tomcat/lib
